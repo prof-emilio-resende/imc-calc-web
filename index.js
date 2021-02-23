@@ -65,6 +65,22 @@ function callTable() {
   request.send(null);
 }
 
+function callTableFetch() {
+  fetch('http://localhost:8080/imc/table')
+    .then(function(rawResponse) {
+      return rawResponse.json()
+        .then(function(response) {
+          // lets mock a xhr old fashion object
+          const xhr = {
+            "readyState": 4,
+            "status": 200,
+            "responseText": JSON.stringify(response)
+          };
+          handleImcTableResponse.bind(xhr)();
+        });
+    });
+}
+
 function callImcCalc(height, weight) {
   var request = createRequest();
   if (!request) 'N/A';
@@ -73,6 +89,29 @@ function callImcCalc(height, weight) {
   request.open('POST', 'http://localhost:8080/imc/calculate', true);
   request.setRequestHeader("Content-type", "application/json");
   request.send(JSON.stringify({'height': height, 'weight': weight}));
+}
+
+function callImcCalcFetch(height, weight) {
+  const options = {
+    method: 'post',
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8'
+    },
+    body: JSON.stringify({'height': height, 'weight': weight})
+  };
+  fetch('http://localhost:8080/imc/calculate', options)
+    .then(function(rawResponse) {
+      return rawResponse.json()
+        .then(function(response) {
+          // lets mock a xhr old fashion object
+          const xhr = {
+            "readyState": 4,
+            "status": 200,
+            "responseText": JSON.stringify(response)
+          };
+          handleImcCalculateResponse.bind(xhr)();
+        });
+    });
 }
 
 function calculateImc(evt) {
@@ -85,11 +124,11 @@ function calculateImc(evt) {
   const height = heightElem.value;
   const weight = weightElem.value;
 
-  callImcCalc(height, weight);
+  callImcCalcFetch(height, weight);
 }
 
 window.onload = function() {
   const btn = document.querySelector(".data .form button");
   btn.addEventListener('click', calculateImc);
-  callTable();
+  callTableFetch();
 };
