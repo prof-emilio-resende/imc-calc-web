@@ -1,4 +1,6 @@
-class ImcDriver {
+import HttpUtil from '../http/HttpUtil.js';
+
+export default class ImcDriver {
   constructor() {
     this.xhr = new HttpUtil();
     this.get = new Proxy(this.xhr.get, {

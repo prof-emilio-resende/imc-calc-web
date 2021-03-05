@@ -1,4 +1,4 @@
-class Person {
+export default class Person {
   constructor(theHeight, theWeight) {
     this.height = theHeight;
     this.weight = theWeight;
@@ -17,6 +17,10 @@ class Person {
     return this._weight;
   }
 
+  get imc() {
+    return this._imc;
+  }
+
   set height(theHeight) {
     console.log('setting height');
     this._height = theHeight;
@@ -25,10 +29,6 @@ class Person {
   set weight(theWeight) {
     console.log('setting weight');
     this._weight = theWeight;
-  }
-
-  get imc() {
-    return this._imc;
   }
 
   set imc(theImc)  {

@@ -1,4 +1,4 @@
-class HttpUtil {
+export default class HttpUtil {
   constructor() {}
 
   get(hostname, url, obj) {

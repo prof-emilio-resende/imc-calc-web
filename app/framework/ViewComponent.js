@@ -1,4 +1,4 @@
-class ViewComponent {
+export default class ViewComponent {
     /**
      * Guard state control and renderization process of the IMC view
      */
@@ -53,6 +53,7 @@ class ViewComponent {
      * @param {Object} obj 
      */
     observe(obj) {
+      const self = this;
       if (obj) {
         return new Proxy(obj, {
           set (target, prop, value, receiver) {
@@ -60,10 +61,12 @@ class ViewComponent {
             console.log(`updated ${updated}`);
             if (target.isValid()) {
               console.log('triggering update to the view');
-              imcView.update({ person: target });
+              self.update({ person: target });             
             } else {
               console.log('object not valid yet, skiping update on view...');
             }
+            
+            return true;
           }
         });
       }
