@@ -1,7 +1,10 @@
+import 'whatwg-fetch'
+
 export default class HttpUtil {
   constructor() {}
 
   get(hostname, url, obj) {
+    console.log('vai chamar fetch !!!');
     return fetch(`${hostname}${url}`);
   }
 

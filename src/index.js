@@ -1,8 +1,8 @@
-import './index.scss';
-
 import ImcTableView from './views/ImcTableView.js';
 import ImcView from './views/ImcView.js';
 import Person from './domain/Person.js';
+
+import './index.scss';
 
 const imcTableView = new ImcTableView();
 const imcView = new ImcView();
