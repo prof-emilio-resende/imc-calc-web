@@ -1,12 +1,21 @@
-import ImcDriver from '../drivers/ImcDriver.js';
-
 export default class ImcController {
   constructor() {
-    this.imcDriver = new ImcDriver();
+    this.imcDriver = null;
   }
 
-  loadTable(onSucceed) {
-    this.imcDriver
+  async prepare() {
+    if (!this.imcDriver) {
+      const { default: ImcDriver } = await import('../drivers/ImcDriver');
+      this.imcDriver = new ImcDriver();
+    }
+
+    return this;
+  }
+
+  async loadTable(onSucceed) {
+    const instance = await this.prepare();
+    instance
+      .imcDriver
       .getTable()
       .then(onSucceed)
       .catch(function (err) {
@@ -16,6 +25,9 @@ export default class ImcController {
   }
 
   async calculate(person) {
-    return await this.imcDriver.calculate(person);
+    const instance = await this.prepare();
+    return instance
+      .imcDriver
+      .calculate(person);
   }
 }

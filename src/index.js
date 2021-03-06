@@ -1,4 +1,4 @@
-import './index.css';
+import './index.scss';
 
 import ImcTableView from './views/ImcTableView.js';
 import ImcView from './views/ImcView.js';
