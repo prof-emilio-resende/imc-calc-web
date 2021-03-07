@@ -1,8 +1,13 @@
+import ProxyPolyfillBuilder from 'proxy-polyfill/src/proxy';
+
 import ImcTableView from './views/ImcTableView.js';
 import ImcView from './views/ImcView.js';
 import Person from './domain/Person.js';
 
 import './index.scss';
+
+// polyfill Proxy in the whole app
+window.Proxy = ProxyPolyfillBuilder();
 
 const imcTableView = new ImcTableView();
 const imcView = new ImcView();

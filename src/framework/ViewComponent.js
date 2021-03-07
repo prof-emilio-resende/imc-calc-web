@@ -1,7 +1,3 @@
-import ProxyPolyfillBuilder from 'proxy-polyfill/src/proxy';
-
-window.Proxy = ProxyPolyfillBuilder();
-
 export default class ViewComponent {
     /**
      * Guard state control and renderization process of the IMC view
