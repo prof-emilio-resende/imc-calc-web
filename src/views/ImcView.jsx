@@ -1,10 +1,9 @@
 import React from 'react';
 
-import ViewComponent from '../framework/ViewComponent.js';
 import ImcController from '../controllers/ImcController.js';
 import Person from '../domain/Person.js';
 
-export default class ImcView extends ViewComponent {
+export default class ImcView extends React.Component {
   /**
    * Guard state control and renderization process of the IMC view
    */
@@ -12,8 +11,8 @@ export default class ImcView extends ViewComponent {
     super('ImcView');
     this.controller = new ImcController();
     this.state = {
-      person: undefined,
-    };
+      person: {}
+    }
   }
 
   /**
@@ -23,25 +22,27 @@ export default class ImcView extends ViewComponent {
     if (this.state.person) {
       const { imc, imcDescription } = this.state.person;
       //this is to explain lexical scope
-      return (<div>Seu IMC &eacute; <span id="imc">{imc}</span> ==> <strong>{imcDescription}</strong></div>);
+      return (<div className={this.props.className}>Seu IMC &eacute; <span id="imc">{imc}</span> ==> <strong>{imcDescription}</strong></div>);
     }
+
     return null;
   }
 
-  async stateUpdated() {
-    if (this.state.person) {
+
+  async componentDidUpdate() {
+    if ((this.props.person && !this.state.person) ||
+      (
+        this.props.person && this.state.person &&
+        (this.props.person.height !== this.state.person.height ||
+        this.props.person.weight !== this.state.person.weight)
+      )) {
       const objPerson = await this.controller.calculate(
-        this.state.person.toObject()
+        this.props.person.toObject()
       );
 
       const newPerson = Object.assign(Object.create(Person), objPerson);
 
-      this.state = {
-        ...this.state,
-        person: newPerson,
-      };
-
-      console.log(this.state);
+      this.setState({person: newPerson});
     } else {
       console.warn("nothing to update on state, person is empty");
     }

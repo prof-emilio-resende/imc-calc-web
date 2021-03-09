@@ -1,24 +1,22 @@
 import React from 'react';
 
-import ViewComponent from '../framework/ViewComponent.js';
 import ImcController from '../controllers/ImcController.js';
 
-export default class ImcTableView extends ViewComponent {
+export default class ImcTableView extends React.Component {
   /**
    * Guard state control and renderization process of the IMC view
    */
   constructor() {
-    super('ImcTableView');
+    super('#imc-table');
     this.imcController = new ImcController();
+    this.state = {
+      tableData: []
+    };
   }
 
-  /**
-   * This method is meant to be triggered right after the page completes the load proccess
-   */
-  onLoad() {
+  componentDidMount() {
     this.imcController.loadTable((tblObj) => {
-      this.state = tblObj
-      this.paint();
+      this.setState({tableData: tblObj});
     });
   }
 
@@ -27,17 +25,16 @@ export default class ImcTableView extends ViewComponent {
    */
   render() {
     //this is to explain lexical scope
-    return (<table>
-      {  Object.keys(this.state)
+    return (<table id="unique"><tbody id="body">
+      {  Object.keys(this.state.tableData)
         .sort()
         .map((k) =>
-          <tr>
+          <tr id={k}>
             <td> {k} </td>
-            <td> {this.state[k]} </td>
+            <td> {this.state.tableData[k]} </td>
           </tr>
-          
         )
       }
-    </table>);
+    </tbody></table>);
   }
 }
