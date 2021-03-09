@@ -21,7 +21,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         include: [
           path.resolve(__dirname, "src"),
         ],

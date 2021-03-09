@@ -1,7 +1,7 @@
 import ProxyPolyfillBuilder from 'proxy-polyfill/src/proxy';
 
-import ImcTableView from './views/ImcTableView.js';
-import ImcView from './views/ImcView.js';
+import ImcTableView from './views/ImcTableView.jsx';
+import ImcView from './views/ImcView.jsx';
 import Person from './domain/Person.js';
 
 import './index.scss';

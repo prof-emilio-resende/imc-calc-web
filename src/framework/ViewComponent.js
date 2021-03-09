@@ -1,3 +1,6 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 export default class ViewComponent {
     /**
      * Guard state control and renderization process of the IMC view
@@ -34,7 +37,12 @@ export default class ViewComponent {
      * This method is meant to put render result inside the element being managed
      */
     paint() {
-      this.element.innerHTML = this.render();
+      const el = React.createElement('div', { id: 'view-component', className: 'a-beautiful-div' }, this.render());
+      console.log('painting component ...');
+      console.log(el);
+
+      console.log('rendering with ReactDOM ...');
+      ReactDOM.render(el, this.element);
     }
 
     /**

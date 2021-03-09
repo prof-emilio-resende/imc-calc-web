@@ -1,3 +1,5 @@
+import React from 'react';
+
 import ViewComponent from '../framework/ViewComponent.js';
 import ImcController from '../controllers/ImcController.js';
 import Person from '../domain/Person.js';
@@ -21,7 +23,7 @@ export default class ImcView extends ViewComponent {
     if (this.state.person) {
       const { imc, imcDescription } = this.state.person;
       //this is to explain lexical scope
-      return `Seu IMC &eacute; <span id="imc">${imc}</span> => <strong>${imcDescription}</strong>`;
+      return (<div>Seu IMC &eacute; <span id="imc">{imc}</span> ==> <strong>{imcDescription}</strong></div>);
     }
     return null;
   }

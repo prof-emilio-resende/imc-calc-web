@@ -1,3 +1,5 @@
+import React from 'react';
+
 import ViewComponent from '../framework/ViewComponent.js';
 import ImcController from '../controllers/ImcController.js';
 
@@ -25,25 +27,17 @@ export default class ImcTableView extends ViewComponent {
    */
   render() {
     //this is to explain lexical scope
-    return `<table>
-      ${  Object.keys(this.state)
+    return (<table>
+      {  Object.keys(this.state)
         .sort()
         .map((k) =>
-          `
-            <tr>
-              <td> ${k} </td>
-              <td> ${this.state[k]} </td>
-            </tr>
-          `
-        ).join('')
+          <tr>
+            <td> {k} </td>
+            <td> {this.state[k]} </td>
+          </tr>
+          
+        )
       }
-    </table>`;
-  }
-
-  /**
-   * This method is meant to put render result inside the element being managed
-   */
-  paint() {
-    this.element.innerHTML = this.render();
+    </table>);
   }
 }
